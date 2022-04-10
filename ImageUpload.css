@@ -1,0 +1,19 @@
+#add-product-image, #add-product-replace-image {
+    display: none;    
+    }
+    .add-product-img-icon {
+    max-width: 90px; 
+    text-align: center; 
+    background-color: transparent; 
+    border: none;
+    }
+    .list-product-img-div { 
+    max-width: 110px; 
+    margin-right: 10px;
+    background-color: transparent; 
+    border: none;
+    }
+    .list-product-img { 
+    max-height: 70px; 
+    max-width: 110px;
+    }
