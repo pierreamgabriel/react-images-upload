@@ -77,7 +77,7 @@ function ImageUpload() {
     }, [change.delete, change.replace]);
 
     return (
-        <div className="row" style={{ marginBottom: "1.5rem" }}>
+        <div className="container-fluid" style={{ marginBottom: "1.5rem" }}>
             <div className="card-group">
                 {imgList.images.map((img, index) => {
                     return (
