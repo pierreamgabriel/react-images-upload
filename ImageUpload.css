@@ -13,6 +13,8 @@
     padding: 5px;
     background-color: transparent;
     text-align: center;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 .list-product-img {
     max-width: 110px;
