@@ -1,6 +1,10 @@
 # React Images Upload
 This is a React component to upload images. It's easy to use, and it comes with a PHP script to handle the back-end logic.
 
+<p align="center">
+<img src="demo.jpg">
+</p>
+
 ## Installation
 Copy the lib folder and the ImageUpload.js and ImageUpload.css files to the src folder of your project. Copy the upload.php file to the public folder. Create a folder called uploads inside the public folder.
 
