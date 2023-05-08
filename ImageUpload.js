@@ -30,8 +30,8 @@ function ImageUpload() {
         axios.post('./upload.php', formData, {
         })
             .then(res => {
-                if (res.data.error == false) {
-                    if (change.replace == true) {
+                if (!res.data.error) {
+                    if (change.replace) {
                         const newArray = imgList.images;
                         newArray[change.index] = res.data.url;
                         setImgList({"images": newArray});
@@ -59,7 +59,7 @@ function ImageUpload() {
 
     useEffect(() => {
 
-        if (change.delete == true) {
+        if (change.delete) {
             if (imgList.images.length == 1) {
                 setImgList({'images': []});
                 setChange({...change, 'delete': false});
@@ -70,7 +70,7 @@ function ImageUpload() {
             }
         }
 
-        if (change.replace == true) {
+        if (change.replace) {
             processImage(change.image);
         }
 
@@ -81,7 +81,7 @@ function ImageUpload() {
             <div className="card-group">
                 {imgList.images.map((img, index) => {
                     return (
-                        <div className="card list-product-img-div" key={index}>
+                        <div className="card list-product-img-div" key={img}>
                             <span>
                                 <i className="icofont-edit" style={{ marginRight: "5px" }}
                                     onClick={() => replaceImage(index)}></i>

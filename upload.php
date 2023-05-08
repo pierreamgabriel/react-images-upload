@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $response = array();
 $dir = './uploads/';
@@ -7,13 +7,16 @@ $urlServer .= $_SERVER['SERVER_NAME'];
 $urlServer .= $_SERVER['REQUEST_URI'];
 $urlServer = dirname(dirname($urlServer));
 
-class IdGenerator {
+class IdGenerator
+{
 
-    static private function _nextChar() {
+    private static function nextChar()
+    {
         return base_convert(mt_rand(0, 35), 10, 36);
     }
 
-    static public function generate() {
+    public static function generate()
+    {
         $parts = explode('.', uniqid('', true));
 
         $id = str_pad(base_convert($parts[0], 16, 2), 56, mt_rand(0, 1), STR_PAD_LEFT)
@@ -24,34 +27,32 @@ class IdGenerator {
 
         $id = array();
         foreach ($chunks as $key => $chunk) {
-            if ($key & 1) {  
+            if ($key & 1) {
                 array_unshift($id, $chunk);
-            } else {         
+            } else {
                 array_push($id, $chunk);
             }
         }
 
-        $prefix = str_pad(base_convert(mt_rand(), 10, 36), 6, self::_nextChar(), STR_PAD_BOTH);
-        $id = str_pad(base_convert(implode($id), 2, 36), 19, self::_nextChar(), STR_PAD_BOTH);
-        $suffix = str_pad(base_convert(mt_rand(), 10, 36), 6, self::_nextChar(), STR_PAD_BOTH);
+        $prefix = str_pad(base_convert(mt_rand(), 10, 36), 6, self::nextChar(), STR_PAD_BOTH);
+        $id = str_pad(base_convert(implode($id), 2, 36), 19, self::nextChar(), STR_PAD_BOTH);
+        $suffix = str_pad(base_convert(mt_rand(), 10, 36), 6, self::nextChar(), STR_PAD_BOTH);
 
-        return $prefix . self::_nextChar() . $id . $suffix;
+        return $prefix . self::nextChar() . $id . $suffix;
     }
 }
 
-if($_FILES['image'])
-{
+if ($_FILES['image']) {
     $fileName = $_FILES["image"]["name"];
     $tempFileName = $_FILES["image"]["tmp_name"];
     $error = $_FILES["image"]["error"];
 
-    if($error > 0){
+    if ($error > 0) {
         $response = array(
             "error" => true,
             "msg" => "Error uploading the file!"
         );
-    }else 
-    {
+    } else {
         $uid = IdGenerator::generate();
         $file_name = $uid."-".$fileName;
         $img_name = strtolower($file_name);
@@ -59,24 +60,23 @@ if($_FILES['image'])
 
         $img_url = preg_replace('/\s+/', '-', 'uploads/'.$img_name);
     
-        if(move_uploaded_file($tempFileName , $upload_img_name)) {
+        if (move_uploaded_file($tempFileName, $upload_img_name)) {
             $response = array(
                 "error" => false,
                 "url" => $urlServer."/".$img_url
               );
-        }else
-        {
+        } else {
             $response = array(
                 "error" => true
             );
         }
     }
 
-}else{
+} else {
     $response = array(
         "error" => true
     );
 }
 
 echo json_encode($response);
-?>
+
